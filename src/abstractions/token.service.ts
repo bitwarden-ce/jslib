@@ -19,6 +19,5 @@ export abstract class TokenService {
     getEmail: () => string;
     getEmailVerified: () => boolean;
     getName: () => string;
-    getPremium: () => boolean;
     getIssuer: () => string;
 }

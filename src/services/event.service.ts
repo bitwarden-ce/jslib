@@ -39,7 +39,7 @@ export class EventService implements EventServiceAbstraction {
         if (organizations == null) {
             return;
         }
-        const orgIds = new Set<string>(organizations.filter((o) => o.useEvents).map((o) => o.id));
+        const orgIds = new Set<string>(organizations.map((o) => o.id));
         if (orgIds.size === 0) {
             return;
         }

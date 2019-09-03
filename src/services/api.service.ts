@@ -6,7 +6,6 @@ import { TokenService } from '../abstractions/token.service';
 
 import { EnvironmentUrls } from '../models/domain/environmentUrls';
 
-import { BitPayInvoiceRequest } from '../models/request/bitPayInvoiceRequest';
 import { CipherBulkDeleteRequest } from '../models/request/cipherBulkDeleteRequest';
 import { CipherBulkMoveRequest } from '../models/request/cipherBulkMoveRequest';
 import { CipherBulkShareRequest } from '../models/request/cipherBulkShareRequest';
@@ -29,7 +28,6 @@ import { KdfRequest } from '../models/request/kdfRequest';
 import { KeysRequest } from '../models/request/keysRequest';
 import { OrganizationCreateRequest } from '../models/request/organizationCreateRequest';
 import { OrganizationUpdateRequest } from '../models/request/organizationUpdateRequest';
-import { OrganizationUpgradeRequest } from '../models/request/organizationUpgradeRequest';
 import { OrganizationUserAcceptRequest } from '../models/request/organizationUserAcceptRequest';
 import { OrganizationUserConfirmRequest } from '../models/request/organizationUserConfirmRequest';
 import { OrganizationUserInviteRequest } from '../models/request/organizationUserInviteRequest';
@@ -38,12 +36,9 @@ import { OrganizationUserUpdateRequest } from '../models/request/organizationUse
 import { PasswordHintRequest } from '../models/request/passwordHintRequest';
 import { PasswordRequest } from '../models/request/passwordRequest';
 import { PasswordVerificationRequest } from '../models/request/passwordVerificationRequest';
-import { PaymentRequest } from '../models/request/paymentRequest';
 import { PreloginRequest } from '../models/request/preloginRequest';
 import { RegisterRequest } from '../models/request/registerRequest';
-import { SeatRequest } from '../models/request/seatRequest';
 import { SelectionReadOnlyRequest } from '../models/request/selectionReadOnlyRequest';
-import { StorageRequest } from '../models/request/storageRequest';
 import { TokenRequest } from '../models/request/tokenRequest';
 import { TwoFactorEmailRequest } from '../models/request/twoFactorEmailRequest';
 import { TwoFactorProviderRequest } from '../models/request/twoFactorProviderRequest';
@@ -57,12 +52,10 @@ import { UpdateTwoFactorEmailRequest } from '../models/request/updateTwoFactorEm
 import { UpdateTwoFactorU2fDeleteRequest } from '../models/request/updateTwoFactorU2fDeleteRequest';
 import { UpdateTwoFactorU2fRequest } from '../models/request/updateTwoFactorU2fRequest';
 import { UpdateTwoFactorYubioOtpRequest } from '../models/request/updateTwoFactorYubioOtpRequest';
-import { VerifyBankRequest } from '../models/request/verifyBankRequest';
 import { VerifyDeleteRecoverRequest } from '../models/request/verifyDeleteRecoverRequest';
 import { VerifyEmailRequest } from '../models/request/verifyEmailRequest';
 
 import { ApiKeyResponse } from '../models/response/apiKeyResponse';
-import { BillingResponse } from '../models/response/billingResponse';
 import { BreachAccountResponse } from '../models/response/breachAccountResponse';
 import { CipherResponse } from '../models/response/cipherResponse';
 import {
@@ -81,16 +74,13 @@ import { IdentityTokenResponse } from '../models/response/identityTokenResponse'
 import { IdentityTwoFactorResponse } from '../models/response/identityTwoFactorResponse';
 import { ListResponse } from '../models/response/listResponse';
 import { OrganizationResponse } from '../models/response/organizationResponse';
-import { OrganizationSubscriptionResponse } from '../models/response/organizationSubscriptionResponse';
 import {
     OrganizationUserDetailsResponse,
     OrganizationUserUserDetailsResponse,
 } from '../models/response/organizationUserResponse';
-import { PaymentResponse } from '../models/response/paymentResponse';
 import { PreloginResponse } from '../models/response/preloginResponse';
 import { ProfileResponse } from '../models/response/profileResponse';
 import { SelectionReadOnlyResponse } from '../models/response/selectionReadOnlyResponse';
-import { SubscriptionResponse } from '../models/response/subscriptionResponse';
 import { SyncResponse } from '../models/response/syncResponse';
 import { TwoFactorAuthenticatorResponse } from '../models/response/twoFactorAuthenticatorResponse';
 import { TwoFactorDuoResponse } from '../models/response/twoFactorDuoResponse';
@@ -160,7 +150,7 @@ export class ApiService implements ApiServiceAbstraction {
     async postIdentityToken(request: TokenRequest): Promise<IdentityTokenResponse | IdentityTwoFactorResponse> {
         const response = await this.fetch(new Request(this.identityBaseUrl + '/connect/token', {
             body: this.qsStringify(request.toIdentityToken(this.platformUtilsService.identityClientId)),
-            credentials: this.getCredentials(),
+            credentials: this.getCredentials(), 
             cache: 'no-cache',
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -201,16 +191,6 @@ export class ApiService implements ApiServiceAbstraction {
     async getProfile(): Promise<ProfileResponse> {
         const r = await this.send('GET', '/accounts/profile', null, true, true);
         return new ProfileResponse(r);
-    }
-
-    async getUserBilling(): Promise<BillingResponse> {
-        const r = await this.send('GET', '/accounts/billing', null, true, true);
-        return new BillingResponse(r);
-    }
-
-    async getUserSubscription(): Promise<SubscriptionResponse> {
-        const r = await this.send('GET', '/accounts/subscription', null, true, true);
-        return new SubscriptionResponse(r);
     }
 
     async putProfile(request: UpdateProfileRequest): Promise<ProfileResponse> {
@@ -256,36 +236,10 @@ export class ApiService implements ApiServiceAbstraction {
         return this.send('POST', '/accounts/register', request, false, false);
     }
 
-    async postPremium(data: FormData): Promise<PaymentResponse> {
-        const r = await this.send('POST', '/accounts/premium', data, true, true);
-        return new PaymentResponse(r);
     }
 
     async postIapCheck(request: IapCheckRequest): Promise<any> {
         return this.send('POST', '/accounts/iap-check', request, true, false);
-    }
-
-    postReinstatePremium(): Promise<any> {
-        return this.send('POST', '/accounts/reinstate-premium', null, true, false);
-    }
-
-    postCancelPremium(): Promise<any> {
-        return this.send('POST', '/accounts/cancel-premium', null, true, false);
-    }
-
-    async postAccountStorage(request: StorageRequest): Promise<PaymentResponse> {
-        const r = await this.send('POST', '/accounts/storage', request, true, true);
-        return new PaymentResponse(r);
-    }
-
-    postAccountPayment(request: PaymentRequest): Promise<any> {
-        return this.send('POST', '/accounts/payment', request, true, false);
-    }
-
-    postAccountLicense(data: FormData): Promise<any> {
-        return this.send('POST', '/accounts/license', data, true, false);
-    }
-
     postAccountKeys(request: KeysRequest): Promise<any> {
         return this.send('POST', '/accounts/keys', request, true, false);
     }
@@ -741,21 +695,6 @@ export class ApiService implements ApiServiceAbstraction {
         return new OrganizationResponse(r);
     }
 
-    async getOrganizationBilling(id: string): Promise<BillingResponse> {
-        const r = await this.send('GET', '/organizations/' + id + '/billing', null, true, true);
-        return new BillingResponse(r);
-    }
-
-    async getOrganizationSubscription(id: string): Promise<OrganizationSubscriptionResponse> {
-        const r = await this.send('GET', '/organizations/' + id + '/subscription', null, true, true);
-        return new OrganizationSubscriptionResponse(r);
-    }
-
-    async getOrganizationLicense(id: string, installationId: string): Promise<any> {
-        return this.send('GET', '/organizations/' + id + '/license?installationId=' + installationId,
-            null, true, true);
-    }
-
     async postOrganization(request: OrganizationCreateRequest): Promise<OrganizationResponse> {
         const r = await this.send('POST', '/organizations', request, true, true);
         return new OrganizationResponse(r);
@@ -770,15 +709,6 @@ export class ApiService implements ApiServiceAbstraction {
         return this.send('POST', '/organizations/' + id + '/leave', null, true, false);
     }
 
-    async postOrganizationLicense(data: FormData): Promise<OrganizationResponse> {
-        const r = await this.send('POST', '/organizations/license', data, true, true);
-        return new OrganizationResponse(r);
-    }
-
-    async postOrganizationLicenseUpdate(id: string, data: FormData): Promise<any> {
-        return this.send('POST', '/organizations/' + id + '/license', data, true, false);
-    }
-
     async postOrganizationApiKey(id: string, request: PasswordVerificationRequest): Promise<ApiKeyResponse> {
         const r = await this.send('POST', '/organizations/' + id + '/api-key', request, true, true);
         return new ApiKeyResponse(r);
@@ -787,37 +717,6 @@ export class ApiService implements ApiServiceAbstraction {
     async postOrganizationRotateApiKey(id: string, request: PasswordVerificationRequest): Promise<ApiKeyResponse> {
         const r = await this.send('POST', '/organizations/' + id + '/rotate-api-key', request, true, true);
         return new ApiKeyResponse(r);
-    }
-
-    async postOrganizationUpgrade(id: string, request: OrganizationUpgradeRequest): Promise<PaymentResponse> {
-        const r = await this.send('POST', '/organizations/' + id + '/upgrade', request, true, true);
-        return new PaymentResponse(r);
-    }
-
-    async postOrganizationSeat(id: string, request: SeatRequest): Promise<PaymentResponse> {
-        const r = await this.send('POST', '/organizations/' + id + '/seat', request, true, true);
-        return new PaymentResponse(r);
-    }
-
-    async postOrganizationStorage(id: string, request: StorageRequest): Promise<PaymentResponse> {
-        const r = await this.send('POST', '/organizations/' + id + '/storage', request, true, true);
-        return new PaymentResponse(r);
-    }
-
-    postOrganizationPayment(id: string, request: PaymentRequest): Promise<any> {
-        return this.send('POST', '/organizations/' + id + '/payment', request, true, false);
-    }
-
-    postOrganizationVerifyBank(id: string, request: VerifyBankRequest): Promise<any> {
-        return this.send('POST', '/organizations/' + id + '/verify-bank', request, true, false);
-    }
-
-    postOrganizationCancel(id: string): Promise<any> {
-        return this.send('POST', '/organizations/' + id + '/cancel', null, true, false);
-    }
-
-    postOrganizationReinstate(id: string): Promise<any> {
-        return this.send('POST', '/organizations/' + id + '/reinstate', null, true, false);
     }
 
     deleteOrganization(id: string, request: PasswordVerificationRequest): Promise<any> {
@@ -884,18 +783,6 @@ export class ApiService implements ApiServiceAbstraction {
     async getHibpBreach(username: string): Promise<BreachAccountResponse[]> {
         const r = await this.send('GET', '/hibp/breach?username=' + username, null, true, true);
         return r.map((a: any) => new BreachAccountResponse(a));
-    }
-
-    // Misc
-
-    async postBitPayInvoice(request: BitPayInvoiceRequest): Promise<string> {
-        const r = await this.send('POST', '/bitpay-invoice', request, true, true);
-        return r as string;
-    }
-
-    async postSetupPayment(): Promise<string> {
-        const r = await this.send('POST', '/setup-payment', null, true, true);
-        return r as string;
     }
 
     // Helpers

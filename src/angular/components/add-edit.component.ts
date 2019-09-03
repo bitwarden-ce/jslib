@@ -149,7 +149,7 @@ export class AddEditComponent implements OnInit {
         this.ownershipOptions.push({ name: myEmail, value: null });
         const orgs = await this.userService.getAllOrganizations();
         orgs.sort(Utils.getSortFunction(this.i18nService, 'name')).forEach((o) => {
-            if (o.enabled && o.status === OrganizationUserStatusType.Confirmed) {
+            if (o.status === OrganizationUserStatusType.Confirmed) {
                 this.ownershipOptions.push({ name: o.name, value: o.id });
             }
         });
@@ -384,9 +384,6 @@ export class AddEditComponent implements OnInit {
         if (this.cipher.organizationId != null) {
             this.collections = this.writeableCollections.filter((c) => c.organizationId === this.cipher.organizationId);
             const org = await this.userService.getOrganization(this.cipher.organizationId);
-            if (org != null) {
-                this.cipher.organizationUseTotp = org.useTotp;
-            }
         } else {
             this.collections = [];
         }

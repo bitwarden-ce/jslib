@@ -44,7 +44,7 @@ export class ShareComponent implements OnInit {
         this.writeableCollections = allCollections.map((c) => c).filter((c) => !c.readOnly);
         const orgs = await this.userService.getAllOrganizations();
         this.organizations = orgs.sort(Utils.getSortFunction(this.i18nService, 'name'))
-            .filter((o) => o.enabled && o.status === OrganizationUserStatusType.Confirmed);
+            .filter((o) => o.status === OrganizationUserStatusType.Confirmed);
 
         const cipherDomain = await this.cipherService.get(this.cipherId);
         this.cipher = await cipherDomain.decrypt();

@@ -26,7 +26,6 @@ export abstract class PlatformUtilsService {
         type?: string) => Promise<boolean>;
     eventTrack: (action: string, label?: string, options?: any) => void;
     isDev: () => boolean;
-    isSelfHost: () => boolean;
     copyToClipboard: (text: string, options?: any) => void;
     readFromClipboard: (options?: any) => Promise<string>;
 }

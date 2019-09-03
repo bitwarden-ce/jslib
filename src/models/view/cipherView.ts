@@ -19,7 +19,6 @@ export class CipherView implements View {
     notes: string = null;
     type: CipherType = null;
     favorite = false;
-    organizationUseTotp = false;
     edit = false;
     localData: any;
     login = new LoginView();
@@ -41,7 +40,6 @@ export class CipherView implements View {
         this.organizationId = c.organizationId;
         this.folderId = c.folderId;
         this.favorite = c.favorite;
-        this.organizationUseTotp = c.organizationUseTotp;
         this.edit = c.edit;
         this.type = c.type;
         this.localData = c.localData;

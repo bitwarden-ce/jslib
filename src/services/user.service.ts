@@ -106,21 +106,6 @@ export class UserService implements UserServiceAbstraction {
         return userId != null;
     }
 
-    async canAccessPremium(): Promise<boolean> {
-        const tokenPremium = this.tokenService.getPremium();
-        if (tokenPremium) {
-            return true;
-        }
-
-        const orgs = await this.getAllOrganizations();
-        for (let i = 0; i < orgs.length; i++) {
-            if (orgs[i].usersGetPremium && orgs[i].enabled) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     async getOrganization(id: string): Promise<Organization> {
         const userId = await this.getUserId();
         const organizations = await this.storageService.get<{ [id: string]: OrganizationData; }>(

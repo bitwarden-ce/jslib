@@ -108,12 +108,6 @@ export class AttachmentsComponent implements OnInit {
             return;
         }
 
-        if (!this.canAccessAttachments) {
-            this.platformUtilsService.showToast('error', this.i18nService.t('premiumRequired'),
-                this.i18nService.t('premiumRequiredDesc'));
-            return;
-        }
-
         a.downloading = true;
         const response = await fetch(new Request(attachment.url, { cache: 'no-cache' }));
         if (response.status !== 200) {
@@ -140,17 +134,8 @@ export class AttachmentsComponent implements OnInit {
         this.cipher = await this.cipherDomain.decrypt();
 
         this.hasUpdatedKey = await this.cryptoService.hasEncKey();
-        const canAccessPremium = await this.userService.canAccessPremium();
-        this.canAccessAttachments = canAccessPremium || this.cipher.organizationId != null;
 
-        if (!this.canAccessAttachments) {
-            const confirmed = await this.platformUtilsService.showDialog(
-                this.i18nService.t('premiumRequiredDesc'), this.i18nService.t('premiumRequired'),
-                this.i18nService.t('learnMore'), this.i18nService.t('cancel'));
-            if (confirmed) {
-                this.platformUtilsService.launchUri('https://vault.bitwarden.com/#/?premium=purchase');
-            }
-        } else if (!this.hasUpdatedKey) {
+        if (!this.hasUpdatedKey) {
             const confirmed = await this.platformUtilsService.showDialog(
                 this.i18nService.t('updateKey'), this.i18nService.t('featureUnavailable'),
                 this.i18nService.t('learnMore'), this.i18nService.t('cancel'), 'warning');

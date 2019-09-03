@@ -16,7 +16,6 @@ export class CipherData {
     folderId: string;
     userId: string;
     edit: boolean;
-    organizationUseTotp: boolean;
     favorite: boolean;
     revisionDate: string;
     type: CipherType;
@@ -42,7 +41,6 @@ export class CipherData {
         this.folderId = response.folderId;
         this.userId = userId;
         this.edit = response.edit;
-        this.organizationUseTotp = response.organizationUseTotp;
         this.favorite = response.favorite;
         this.revisionDate = response.revisionDate;
         this.type = response.type;

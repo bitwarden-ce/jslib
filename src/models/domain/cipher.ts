@@ -22,7 +22,6 @@ export class Cipher extends Domain {
     notes: CipherString;
     type: CipherType;
     favorite: boolean;
-    organizationUseTotp: boolean;
     edit: boolean;
     revisionDate: Date;
     localData: any;
@@ -52,7 +51,6 @@ export class Cipher extends Domain {
 
         this.type = obj.type;
         this.favorite = obj.favorite;
-        this.organizationUseTotp = obj.organizationUseTotp;
         this.edit = obj.edit;
         this.revisionDate = obj.revisionDate != null ? new Date(obj.revisionDate) : null;
         this.collectionIds = obj.collectionIds;
@@ -167,7 +165,6 @@ export class Cipher extends Domain {
         c.folderId = this.folderId;
         c.userId = this.organizationId != null ? userId : null;
         c.edit = this.edit;
-        c.organizationUseTotp = this.organizationUseTotp;
         c.favorite = this.favorite;
         c.revisionDate = this.revisionDate != null ? this.revisionDate.toISOString() : null;
         c.type = this.type;

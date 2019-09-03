@@ -37,7 +37,6 @@ export class ViewComponent implements OnDestroy, OnInit {
     cipher: CipherView;
     showPassword: boolean;
     showCardCode: boolean;
-    canAccessPremium: boolean;
     totpCode: string;
     totpCodeFormatted: string;
     totpDash: number;
@@ -82,10 +81,8 @@ export class ViewComponent implements OnDestroy, OnInit {
 
         const cipher = await this.cipherService.get(this.cipherId);
         this.cipher = await cipher.decrypt();
-        this.canAccessPremium = await this.userService.canAccessPremium();
 
-        if (this.cipher.type === CipherType.Login && this.cipher.login.totp &&
-            (cipher.organizationUseTotp || this.canAccessPremium)) {
+        if (this.cipher.type === CipherType.Login && this.cipher.login.totp) {
             await this.totpUpdateCode();
             const interval = this.totpService.getTimeInterval(this.cipher.login.totp);
             await this.totpTick(interval);
@@ -178,12 +175,6 @@ export class ViewComponent implements OnDestroy, OnInit {
     async downloadAttachment(attachment: AttachmentView) {
         const a = (attachment as any);
         if (a.downloading) {
-            return;
-        }
-
-        if (this.cipher.organizationId == null && !this.canAccessPremium) {
-            this.platformUtilsService.showToast('error', this.i18nService.t('premiumRequired'),
-                this.i18nService.t('premiumRequiredDesc'));
             return;
         }
 

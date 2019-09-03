@@ -30,7 +30,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 1,
         sort: 1,
-        premium: false,
     },
     [TwoFactorProviderType.Yubikey]: {
         type: TwoFactorProviderType.Yubikey,
@@ -38,7 +37,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 3,
         sort: 2,
-        premium: true,
     },
     [TwoFactorProviderType.Duo]: {
         type: TwoFactorProviderType.Duo,
@@ -46,7 +44,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 2,
         sort: 3,
-        premium: true,
     },
     [TwoFactorProviderType.OrganizationDuo]: {
         type: TwoFactorProviderType.OrganizationDuo,
@@ -54,7 +51,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 10,
         sort: 4,
-        premium: false,
     },
     [TwoFactorProviderType.U2f]: {
         type: TwoFactorProviderType.U2f,
@@ -62,7 +58,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 4,
         sort: 5,
-        premium: true,
     },
     [TwoFactorProviderType.Email]: {
         type: TwoFactorProviderType.Email,
@@ -70,7 +65,6 @@ export const TwoFactorProviders = {
         description: null as string,
         priority: 0,
         sort: 6,
-        premium: false,
     },
 };
 

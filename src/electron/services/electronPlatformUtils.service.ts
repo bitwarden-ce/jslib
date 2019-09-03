@@ -180,10 +180,6 @@ export class ElectronPlatformUtilsService implements PlatformUtilsService {
         return isDev();
     }
 
-    isSelfHost(): boolean {
-        return false;
-    }
-
     copyToClipboard(text: string, options?: any): void {
         const type = options ? options.type : null;
         const clearing = options ? !!options.clearing : false;

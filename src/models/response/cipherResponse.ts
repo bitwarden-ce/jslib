@@ -22,7 +22,6 @@ export class CipherResponse extends BaseResponse {
     secureNote: SecureNoteApi;
     favorite: boolean;
     edit: boolean;
-    organizationUseTotp: boolean;
     revisionDate: string;
     attachments: AttachmentResponse[];
     passwordHistory: PasswordHistoryResponse[];
@@ -38,7 +37,6 @@ export class CipherResponse extends BaseResponse {
         this.notes = this.getResponseProperty('Notes');
         this.favorite = this.getResponseProperty('Favorite') || false;
         this.edit = this.getResponseProperty('Edit') || true;
-        this.organizationUseTotp = this.getResponseProperty('OrganizationUseTotp');
         this.revisionDate = this.getResponseProperty('RevisionDate');
         this.collectionIds = this.getResponseProperty('CollectionIds');
 
