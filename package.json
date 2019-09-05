@@ -1,15 +1,15 @@
 {
-  "name": "@bitwarden/jslib",
+  "name": "@bytegarden/jslib",
   "version": "0.0.0",
   "description": "Common code used across Bitwarden JavaScript projects.",
   "keywords": [
-    "bitwarden"
+    "bytegarden"
   ],
-  "author": "8bit Solutions LLC",
-  "homepage": "https://bitwarden.com",
+  "author": "ByteGarden contributors",
+  "homepage": "https://gitlab.kokakiwi.net/contrib/bytewarden/jslib",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitwarden/jslib"
+    "url": "https://gitlab.kokakiwi.net/contrib/bytewarden/jslib"
   },
   "license": "GPL-3.0",
   "scripts": {

@@ -18,7 +18,7 @@ export class UpdateCommand {
     async run(cmd: program.Command): Promise<Response> {
         const currentVersion = this.platformUtilsService.getApplicationVersion();
 
-        const response = await fetch.default('https://api.github.com/repos/bitwarden/' +
+        const response = await fetch.default('https://api.github.com/repos/bytegarden/' +
             this.repoName + '/releases/latest');
         if (response.status === 200) {
             const responseJson = await response.json();
@@ -58,7 +58,7 @@ export class UpdateCommand {
 
             res.title = 'A new version is available: ' + tagName;
             if (downloadUrl == null) {
-                downloadUrl = 'https://github.com/bitwarden/' + this.repoName + '/releases';
+                downloadUrl = 'https://github.com/bytegarden/' + this.repoName + '/releases';
             } else {
                 res.raw = downloadUrl;
             }
@@ -75,7 +75,7 @@ export class UpdateCommand {
                         'you should probably update using its update command instead.';
                 } else {
                     res.message += '\n\nIf you installed this CLI through NPM ' +
-                        'you should update using `npm install -g @bitwarden/' + this.repoName + '`';
+                        'you should update using `npm install -g @bytegarden/' + this.repoName + '`';
                 }
             }
             return Response.success(res);

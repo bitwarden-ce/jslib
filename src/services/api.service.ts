@@ -135,13 +135,13 @@ export class ApiService implements ApiServiceAbstraction {
 
         // Production
         if (this.apiBaseUrl == null) {
-            this.apiBaseUrl = 'https://api.bitwarden.com';
+            this.apiBaseUrl = 'https://api.bytegarden.com';
         }
         if (this.identityBaseUrl == null) {
-            this.identityBaseUrl = 'https://identity.bitwarden.com';
+            this.identityBaseUrl = 'https://identity.bytegarden.com';
         }
         if (this.eventsBaseUrl == null) {
-            this.eventsBaseUrl = 'https://events.bitwarden.com';
+            this.eventsBaseUrl = 'https://events.bytegarden.com';
         }
     }
 

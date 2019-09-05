@@ -44,7 +44,7 @@ export class LockComponent implements OnInit {
         this.email = await this.userService.getEmail();
         let vaultUrl = this.environmentService.getWebVaultUrl();
         if (vaultUrl == null) {
-            vaultUrl = 'https://bitwarden.com';
+            vaultUrl = 'https://bytegarden.com';
         }
         this.webVaultHostname = Utils.getHostname(vaultUrl);
     }

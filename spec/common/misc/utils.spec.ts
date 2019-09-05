@@ -7,22 +7,22 @@ describe('Utils Service', () => {
             expect(Utils.getDomain(undefined)).toBeNull();
             expect(Utils.getDomain(' ')).toBeNull();
             expect(Utils.getDomain('https://bit!:"_&ward.com')).toBeNull();
-            expect(Utils.getDomain('bitwarden')).toBeNull();
+            expect(Utils.getDomain('bytegarden')).toBeNull();
         });
 
         it('should handle urls without protocol', () => {
-            expect(Utils.getDomain('bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getDomain('wrong://bitwarden.com')).toBe('bitwarden.com');
+            expect(Utils.getDomain('bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getDomain('wrong://bytegarden.com')).toBe('bytegarden.com');
         });
 
         it('should handle valid urls', () => {
-            expect(Utils.getDomain('https://bitwarden')).toBe('bitwarden');
-            expect(Utils.getDomain('https://bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getDomain('http://bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getDomain('http://vault.bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getDomain('https://user:password@bitwarden.com:8080/password/sites?and&query#hash'))
-                .toBe('bitwarden.com');
-            expect(Utils.getDomain('https://bitwarden.unknown')).toBe('bitwarden.unknown');
+            expect(Utils.getDomain('https://bytegarden')).toBe('bytegarden');
+            expect(Utils.getDomain('https://bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getDomain('http://bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getDomain('http://vault.bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getDomain('https://user:password@bytegarden.com:8080/password/sites?and&query#hash'))
+                .toBe('bytegarden.com');
+            expect(Utils.getDomain('https://bytegarden.unknown')).toBe('bytegarden.unknown');
         });
 
         it('should support localhost and IP', () => {
@@ -37,20 +37,20 @@ describe('Utils Service', () => {
             expect(Utils.getHostname(undefined)).toBeNull();
             expect(Utils.getHostname(' ')).toBeNull();
             expect(Utils.getHostname('https://bit!:"_&ward.com')).toBeNull();
-            expect(Utils.getHostname('bitwarden')).toBeNull();
+            expect(Utils.getHostname('bytegarden')).toBeNull();
         });
 
         it('should handle valid urls', () => {
-            expect(Utils.getHostname('bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getHostname('https://bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getHostname('http://bitwarden.com')).toBe('bitwarden.com');
-            expect(Utils.getHostname('http://vault.bitwarden.com')).toBe('vault.bitwarden.com');
+            expect(Utils.getHostname('bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getHostname('https://bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getHostname('http://bytegarden.com')).toBe('bytegarden.com');
+            expect(Utils.getHostname('http://vault.bytegarden.com')).toBe('vault.bytegarden.com');
 
             if (Utils.isNode || window.navigator.userAgent.indexOf(' Edge/') === -1) {
                 // Note: Broken in Edge browser. See
                 // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/8004284/
-                expect(Utils.getHostname('https://user:password@bitwarden.com:8080/password/sites?and&query#hash'))
-                    .toBe('bitwarden.com');
+                expect(Utils.getHostname('https://user:password@bytegarden.com:8080/password/sites?and&query#hash'))
+                    .toBe('bytegarden.com');
             }
         });
 

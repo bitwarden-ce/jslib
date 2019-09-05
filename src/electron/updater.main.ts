@@ -131,7 +131,7 @@ export class UpdaterMain {
 
         if (!this.canUpdate) {
             if (withFeedback) {
-                shell.openExternal('https://github.com/bitwarden/' + this.gitHubProject + '/releases');
+                shell.openExternal('https://github.com/bytegarden/' + this.gitHubProject + '/releases');
             }
 
             return;

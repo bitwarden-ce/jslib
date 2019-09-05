@@ -26,8 +26,8 @@ import { CipherView } from '../models/view/cipherView';
 import { AscendoCsvImporter } from '../importers/ascendoCsvImporter';
 import { AvastCsvImporter } from '../importers/avastCsvImporter';
 import { AviraCsvImporter } from '../importers/aviraCsvImporter';
-import { BitwardenCsvImporter } from '../importers/bitwardenCsvImporter';
-import { BitwardenJsonImporter } from '../importers/bitwardenJsonImporter';
+import { BitwardenCsvImporter } from '../importers/bytegardenCsvImporter';
+import { BitwardenJsonImporter } from '../importers/bytegardenJsonImporter';
 import { BlackBerryCsvImporter } from '../importers/blackBerryCsvImporter';
 import { BlurCsvImporter } from '../importers/blurCsvImporter';
 import { ChromeCsvImporter } from '../importers/chromeCsvImporter';
@@ -72,8 +72,8 @@ import { ZohoVaultCsvImporter } from '../importers/zohoVaultCsvImporter';
 
 export class ImportService implements ImportServiceAbstraction {
     featuredImportOptions = [
-        { id: 'bitwardenjson', name: 'Bitwarden (json)' },
-        { id: 'bitwardencsv', name: 'Bitwarden (csv)' },
+        { id: 'bytegardenjson', name: 'Bitwarden (json)' },
+        { id: 'bytegardencsv', name: 'Bitwarden (csv)' },
         { id: 'lastpasscsv', name: 'LastPass (csv)' },
         { id: 'chromecsv', name: 'Chrome (csv)' },
         { id: 'firefoxcsv', name: 'Firefox (csv)' },
@@ -170,9 +170,9 @@ export class ImportService implements ImportServiceAbstraction {
         }
 
         switch (format) {
-            case 'bitwardencsv':
+            case 'bytegardencsv':
                 return new BitwardenCsvImporter();
-            case 'bitwardenjson':
+            case 'bytegardenjson':
                 return new BitwardenJsonImporter();
             case 'lastpasscsv':
             case 'passboltcsv':

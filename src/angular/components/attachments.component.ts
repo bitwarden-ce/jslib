@@ -140,7 +140,7 @@ export class AttachmentsComponent implements OnInit {
                 this.i18nService.t('updateKey'), this.i18nService.t('featureUnavailable'),
                 this.i18nService.t('learnMore'), this.i18nService.t('cancel'), 'warning');
             if (confirmed) {
-                this.platformUtilsService.launchUri('https://help.bitwarden.com/article/update-encryption-key/');
+                this.platformUtilsService.launchUri('https://help.bytegarden.com/article/update-encryption-key/');
             }
         }
     }

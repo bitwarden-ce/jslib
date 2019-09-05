@@ -43,7 +43,7 @@ export class IconComponent implements OnChanges {
             if (environmentService.baseUrl) {
                 this.iconsUrl = environmentService.baseUrl + '/icons';
             } else {
-                this.iconsUrl = 'https://icons.bitwarden.net';
+                this.iconsUrl = 'https://icons.bytegarden.net';
             }
         }
     }

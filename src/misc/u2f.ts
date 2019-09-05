@@ -6,7 +6,7 @@ export class U2f {
     constructor(private win: Window, private webVaultUrl: string, private successCallback: Function,
         private errorCallback: Function, private infoCallback: Function) {
         this.connectorLink = win.document.createElement('a');
-        this.webVaultUrl = webVaultUrl != null && webVaultUrl !== '' ? webVaultUrl : 'https://vault.bitwarden.com';
+        this.webVaultUrl = webVaultUrl != null && webVaultUrl !== '' ? webVaultUrl : 'https://vault.bytegarden.com';
     }
 
     init(data: any): void {
