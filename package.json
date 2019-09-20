@@ -11,17 +11,18 @@
     "type": "git",
     "url": "https://gitlab.kokakiwi.net/contrib/bytewarden/jslib"
   },
+  "main": "src/index.ts",
   "license": "GPL-3.0",
   "scripts": {
     "clean": "rimraf dist/**/*",
-    "build": "npm run clean && tsc",
-    "build:watch": "npm run clean && tsc -watch",
+    "build": "yarn clean && tsc",
+    "build:watch": "yarn clean && tsc -watch",
     "lint": "tslint src/**/*.ts spec/**/*.ts || true",
     "lint:fix": "tslint src/**/*.ts spec/**/*.ts --fix",
     "test": "karma start ./spec/support/karma.conf.js --single-run",
     "test:watch": "karma start ./spec/support/karma.conf.js",
-    "test:node": "npm run build && jasmine",
-    "test:node:watch": "concurrently -k -n TSC,Node -c yellow,cyan \"npm run build:watch\" \"nodemon -w ./dist --delay 500ms --exec jasmine\""
+    "test:node": "yarn build && jasmine",
+    "test:node:watch": "concurrently -k -n TSC,Node -c yellow,cyan \"yarn build:watch\" \"nodemon -w ./dist --delay 500ms --exec jasmine\""
   },
   "devDependencies": {
     "@types/commander": "^2.12.2",
