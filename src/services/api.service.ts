@@ -55,22 +55,16 @@ import { UpdateTwoFactorYubioOtpRequest } from '../models/request/updateTwoFacto
 import { VerifyDeleteRecoverRequest } from '../models/request/verifyDeleteRecoverRequest';
 import { VerifyEmailRequest } from '../models/request/verifyEmailRequest';
 
+import { IdentityTokenResponse } from '../models/response';
 import { ApiKeyResponse } from '../models/response/apiKeyResponse';
 import { BreachAccountResponse } from '../models/response/breachAccountResponse';
 import { CipherResponse } from '../models/response/cipherResponse';
-import {
-    CollectionGroupDetailsResponse,
-    CollectionResponse,
-} from '../models/response/collectionResponse';
+import { CollectionGroupDetailsResponse, CollectionResponse } from '../models/response/collectionResponse';
 import { DomainsResponse } from '../models/response/domainsResponse';
 import { ErrorResponse } from '../models/response/errorResponse';
 import { EventResponse } from '../models/response/eventResponse';
 import { FolderResponse } from '../models/response/folderResponse';
-import {
-    GroupDetailsResponse,
-    GroupResponse,
-} from '../models/response/groupResponse';
-import { IdentityTokenResponse } from '../models/response/identityTokenResponse';
+import { GroupDetailsResponse, GroupResponse } from '../models/response/groupResponse';
 import { IdentityTwoFactorResponse } from '../models/response/identityTwoFactorResponse';
 import { ListResponse } from '../models/response/listResponse';
 import { OrganizationResponse } from '../models/response/organizationResponse';
@@ -87,10 +81,7 @@ import { TwoFactorDuoResponse } from '../models/response/twoFactorDuoResponse';
 import { TwoFactorEmailResponse } from '../models/response/twoFactorEmailResponse';
 import { TwoFactorProviderResponse } from '../models/response/twoFactorProviderResponse';
 import { TwoFactorRecoverResponse } from '../models/response/twoFactorRescoverResponse';
-import {
-    ChallengeResponse,
-    TwoFactorU2fResponse,
-} from '../models/response/twoFactorU2fResponse';
+import { ChallengeResponse, TwoFactorU2fResponse } from '../models/response/twoFactorU2fResponse';
 import { TwoFactorYubiKeyResponse } from '../models/response/twoFactorYubiKeyResponse';
 import { UserKeyResponse } from '../models/response/userKeyResponse';
 
@@ -100,11 +91,11 @@ export class ApiService implements ApiServiceAbstraction {
     identityBaseUrl: string;
     eventsBaseUrl: string;
 
-    private device: DeviceType;
-    private deviceType: string;
-    private isWebClient = false;
-    private isDesktopClient = false;
-    private usingBaseUrl = false;
+    private readonly device: DeviceType;
+    private readonly deviceType: string;
+    private readonly isWebClient: boolean = false;
+    private readonly isDesktopClient: boolean = false;
+    private usingBaseUrl: boolean = false;
 
     constructor(private tokenService: TokenService, private platformUtilsService: PlatformUtilsService,
         private logoutCallback: (expired: boolean) => Promise<void>) {
@@ -150,7 +141,7 @@ export class ApiService implements ApiServiceAbstraction {
     async postIdentityToken(request: TokenRequest): Promise<IdentityTokenResponse | IdentityTwoFactorResponse> {
         const response = await this.fetch(new Request(this.identityBaseUrl + '/connect/token', {
             body: this.qsStringify(request.toIdentityToken(this.platformUtilsService.identityClientId)),
-            credentials: this.getCredentials(), 
+            credentials: this.getCredentials(),
             cache: 'no-cache',
             headers: new Headers({
                 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -236,10 +227,10 @@ export class ApiService implements ApiServiceAbstraction {
         return this.send('POST', '/accounts/register', request, false, false);
     }
 
-    }
-
     async postIapCheck(request: IapCheckRequest): Promise<any> {
         return this.send('POST', '/accounts/iap-check', request, true, false);
+    }
+
     postAccountKeys(request: KeysRequest): Promise<any> {
         return this.send('POST', '/accounts/keys', request, true, false);
     }
